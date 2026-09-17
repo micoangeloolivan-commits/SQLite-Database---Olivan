@@ -1,0 +1,42 @@
+SQLite version 3.53.2 2026-06-03 19:12:13
+Enter ".help" for usage hints.
+sqlite> CREATE TABLE items1 (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL, quantity INTEGER, supplier TEXT);
+sqlite> INSERT INTO items1 (name, category, price, quantity, supplier)
+   ...> VALUES (Wireless Mouse, Electronics, 15.99, 120, TechSource)
+   ...> VALUES (Mechanical Keyboard, Electronics, 45.50, 60, TechSource)
+   ...> VALUES (USB-C Cable, Electronics, 8.25, 200, TechSource)
+   ...> VALUES (Office Chair, Furniture, 89.99, 35, ComfortCo)
+   ...> 
+   ...> VALUES (Standing Desk, Furniture, 199.00, 15, ComfortCo)
+   ...> VALUES (Desk Lamp, Furniture, 22.75, 80, ComfortCo)
+   ...> VALUES (Printer Paper (Ream), Office Supplies, 6.50, 300, PaperPlus)
+   ...> VALUES (Ballpoint Pens (Box), Office Supplies, 4.25, 250, PaperPlus)
+   ...> VALUES (Sticky Notes (Pack), Office Supplies, 3.10, 180, PaperPlus)
+   ...> VALUES (External Hard Drive, Electronics, 64.99, 40, TechSource)
+   ...> VALUES (Whiteboard Eraser, Office Supplies, 2.00, 90, PaperPlus)
+   ...> ;
+Parse error near line 2: near "Mouse": syntax error
+  gory, price, quantity, supplier) VALUES (Wireless Mouse, Electronics, 15.99, 1
+                                      error here ---^
+sqlite> );
+Parse error near line 16: near ")": syntax error
+  );
+  ^--- error here
+sqlite> ;
+sqlite> SELECT * FROM items;
+Parse error near line 18: no such table: items
+sqlite> SELECT * FROM items1;
+sqlite> 
+sqlite> 'frf'
+   ...> VALUES (WirelessMouse, Electronics, 15.99, 120, TechSource)
+   ...> VALUES (MechanicalKeyboard, Electronics, 45.50, 60, TechSource)
+   ...> VALUES (USB-C Cable, Electronics, 8.25, 200, TechSource)
+   ...> ;
+Parse error near line 21: near "'frf'": syntax error
+  'frf' VALUES (WirelessMouse, Electronics, 15.99, 120, TechSource) VALUES (Mech
+  ^--- error here
+sqlite> 'frf'
+   ...> VALUES ('Wireless Mouse','Electronics', 15.99, 120, 'TechSource')
+   ...> VALUES ('Mechanical Keyboard', 'Electronics', 45.50, 60, 'TechSource')
+   ...> VALUES ('USB-C Cable', 'Electronics', 8.25, 200, 'TechSource')
+   ...> 
