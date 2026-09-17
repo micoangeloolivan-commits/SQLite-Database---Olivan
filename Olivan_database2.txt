@@ -1,0 +1,173 @@
+@micoangeloolivan-commits ➜ /workspaces/SQLite-Database---Olivan (main) $ sqlite3 database2.db
+SQLite version 3.53.2 2026-06-03 19:12:13
+Enter ".help" for usage hints.
+sqlite> CREATE TABLE items2 (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL, quantity INTEGER, supplier TEXT);
+sqlite> INSERT INTO items2 (name, category, price, quantity, supplier)
+   ...> VALUES
+   ...> ('Wireless Mouse', 'Electronics', 15.99, 120, 'TechSource'),
+   ...> ('Mechanical Keyboard', 'Electronics', 45.50, 60, 'TechSource'),
+   ...> ('USB-C Cable', 'Electronics', 8.25, 200, 'TechSource'),
+   ...> ('Office Chair', 'Furniture', 89.99, 35, 'ComfortCo'),
+   ...> ('Standing Desk', 'Furniture', 199.00, 15, 'ComfortCo'),
+   ...> ('Desk Lamp', 'Furniture', 22.75, 80, 'ComfortCo'),
+   ...> ('Printer Paper (Ream)', 'Office Supplies', 6.50, 300, 'PaperPlus'),
+   ...> ('Ballpoint Pens (Box)', 'Office Supplies', 4.25, 250, 'PaperPlus'),
+   ...> ('Sticky Notes (Pack)', 'Office Supplies', 3.10, 180, 'PaperPlus'),
+   ...> ('External Hard Drive', 'Electronics', 64.99, 40, 'TechSource'),
+   ...> ('Whiteboard Eraser', 'Office Supplies', 2.00, 90, 'PaperPlus');
+sqlite> SELECT * FROM items2;
+╭────┬──────────────────────┬─────────────────┬───────┬──────────┬────────────╮
+│ id │         name         │    category     │ price │ quantity │  supplier  │
+╞════╪══════════════════════╪═════════════════╪═══════╪══════════╪════════════╡
+│  1 │ Wireless Mouse       │ Electronics     │ 15.99 │      120 │ TechSource │
+│  2 │ Mechanical Keyboard  │ Electronics     │  45.5 │       60 │ TechSource │
+│  3 │ USB-C Cable          │ Electronics     │  8.25 │      200 │ TechSource │
+│  4 │ Office Chair         │ Furniture       │ 89.99 │       35 │ ComfortCo  │
+│  5 │ Standing Desk        │ Furniture       │ 199.0 │       15 │ ComfortCo  │
+│  6 │ Desk Lamp            │ Furniture       │ 22.75 │       80 │ ComfortCo  │
+│  7 │ Printer Paper (Ream) │ Office Supplies │   6.5 │      300 │ PaperPlus  │
+│  8 │ Ballpoint Pens (Box) │ Office Supplies │  4.25 │      250 │ PaperPlus  │
+│  9 │ Sticky Notes (Pack)  │ Office Supplies │   3.1 │      180 │ PaperPlus  │
+│ 10 │ External Hard Drive  │ Electronics     │ 64.99 │       40 │ TechSource │
+│ 11 │ Whiteboard Eraser    │ Office Supplies │   2.0 │       90 │ PaperPlus  │
+╰────┴──────────────────────┴─────────────────┴───────┴──────────┴────────────╯
+sqlite> UPDATE items2
+   ...> SET price = 12.99
+   ...> WHERE name = 'Wireless Mouse';
+sqlite> DELETE FROM items2
+   ...> WHERE name = 'Whiteboard Eraser';
+sqlite> SELECT * FROM items2;
+╭──┬─────────────┬───────────────┬─────┬────────┬──────────╮
+│id│    name     │   category    │price│quantity│ supplier │
+╞══╪═════════════╪═══════════════╪═════╪════════╪══════════╡
+│ 1│Wireless     │Electronics    │12.99│     120│TechSource│
+│  │Mouse        │               │     │        │          │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 2│Mechanical   │Electronics    │ 45.5│      60│TechSource│
+│  │Keyboard     │               │     │        │          │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 3│USB-C Cable  │Electronics    │ 8.25│     200│TechSource│
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 4│Office Chair │Furniture      │89.99│      35│ComfortCo │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 5│Standing Desk│Furniture      │199.0│      15│ComfortCo │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 6│Desk Lamp    │Furniture      │22.75│      80│ComfortCo │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 7│Printer Paper│Office Supplies│  6.5│     300│PaperPlus │
+│  │(Ream)       │               │     │        │          │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 8│Ballpoint    │Office Supplies│ 4.25│     250│PaperPlus │
+│  │Pens (Box)   │               │     │        │          │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│ 9│Sticky Notes │Office Supplies│  3.1│     180│PaperPlus │
+│  │(Pack)       │               │     │        │          │
+├──┼─────────────┼───────────────┼─────┼────────┼──────────┤
+│10│External Hard│Electronics    │64.99│      40│TechSource│
+│  │Drive        │               │     │        │          │
+╰──┴─────────────┴───────────────┴─────┴────────┴──────────╯
+sqlite> SELECT product_name AS "Item Name", unit_price AS "Price" 
+   ...> FROM products;
+Parse error near line 22: no such table: products
+sqlite> SELECT product_name AS "Item Name", unit_price AS "Price"
+   ...> FROM items2;
+Parse error near line 24: no such column: product_name
+  SELECT product_name AS "Item Name", unit_price AS "Price" FROM items2;
+         ^--- error here
+sqlite> SELECT name AS "Item Name", price AS "Price"
+   ...> FROM items2;
+╭──────────────────────┬───────╮
+│      Item Name       │ Price │
+╞══════════════════════╪═══════╡
+│ Wireless Mouse       │ 12.99 │
+│ Mechanical Keyboard  │  45.5 │
+│ USB-C Cable          │  8.25 │
+│ Office Chair         │ 89.99 │
+│ Standing Desk        │ 199.0 │
+│ Desk Lamp            │ 22.75 │
+│ Printer Paper (Ream) │   6.5 │
+│ Ballpoint Pens (Box) │  4.25 │
+│ Sticky Notes (Pack)  │   3.1 │
+│ External Hard Drive  │ 64.99 │
+╰──────────────────────┴───────╯
+sqlite> SELECT name, (price * quantity) AS "Total Value"
+   ...> FROM items2;
+╭──────────────────────┬────────────────────╮
+│         name         │    Total Value     │
+╞══════════════════════╪════════════════════╡
+│ Wireless Mouse       │             1558.8 │
+│ Mechanical Keyboard  │             2730.0 │
+│ USB-C Cable          │             1650.0 │
+│ Office Chair         │ 3149.6499999999996 │
+│ Standing Desk        │             2985.0 │
+│ Desk Lamp            │             1820.0 │
+│ Printer Paper (Ream) │             1950.0 │
+│ Ballpoint Pens (Box) │             1062.5 │
+│ Sticky Notes (Pack)  │              558.0 │
+│ External Hard Drive  │             2599.6 │
+╰──────────────────────┴────────────────────╯
+sqlite> SELECT name ||'('|| category ||')' AS "Product Listing"
+   ...> FROM items2;
+╭───────────────────────────────────────╮
+│            Product Listing            │
+╞═══════════════════════════════════════╡
+│ Wireless Mouse(Electronics)           │
+│ Mechanical Keyboard(Electronics)      │
+│ USB-C Cable(Electronics)              │
+│ Office Chair(Furniture)               │
+│ Standing Desk(Furniture)              │
+│ Desk Lamp(Furniture)                  │
+│ Printer Paper (Ream)(Office Supplies) │
+│ Ballpoint Pens (Box)(Office Supplies) │
+│ Sticky Notes (Pack)(Office Supplies)  │
+│ External Hard Drive(Electronics)      │
+╰───────────────────────────────────────╯
+sqlite> SELECT * FROM items2
+   ...> WHERE category = 'Electronics' AND price > 20;
+╭────┬─────────────────────┬─────────────┬───────┬──────────┬────────────╮
+│ id │        name         │  category   │ price │ quantity │  supplier  │
+╞════╪═════════════════════╪═════════════╪═══════╪══════════╪════════════╡
+│  2 │ Mechanical Keyboard │ Electronics │  45.5 │       60 │ TechSource │
+│ 10 │ External Hard Drive │ Electronics │ 64.99 │       40 │ TechSource │
+╰────┴─────────────────────┴─────────────┴───────┴──────────┴────────────╯
+sqlite> SELECT * FROM items2
+   ...> WHERE price BETWEEN 10 AND 50;
+╭────┬─────────────────────┬─────────────┬───────┬──────────┬────────────╮
+│ id │        name         │  category   │ price │ quantity │  supplier  │
+╞════╪═════════════════════╪═════════════╪═══════╪══════════╪════════════╡
+│  1 │ Wireless Mouse      │ Electronics │ 12.99 │      120 │ TechSource │
+│  2 │ Mechanical Keyboard │ Electronics │  45.5 │       60 │ TechSource │
+│  6 │ Desk Lamp           │ Furniture   │ 22.75 │       80 │ ComfortCo  │
+╰────┴─────────────────────┴─────────────┴───────┴──────────┴────────────╯
+sqlite> SELECT * FROM items2
+   ...> ORDER BY quantity DESC;
+╭────┬──────────────────────┬─────────────────┬───────┬──────────┬────────────╮
+│ id │         name         │    category     │ price │ quantity │  supplier  │
+╞════╪══════════════════════╪═════════════════╪═══════╪══════════╪════════════╡
+│  7 │ Printer Paper (Ream) │ Office Supplies │   6.5 │      300 │ PaperPlus  │
+│  8 │ Ballpoint Pens (Box) │ Office Supplies │  4.25 │      250 │ PaperPlus  │
+│  3 │ USB-C Cable          │ Electronics     │  8.25 │      200 │ TechSource │
+│  9 │ Sticky Notes (Pack)  │ Office Supplies │   3.1 │      180 │ PaperPlus  │
+│  1 │ Wireless Mouse       │ Electronics     │ 12.99 │      120 │ TechSource │
+│  6 │ Desk Lamp            │ Furniture       │ 22.75 │       80 │ ComfortCo  │
+│  2 │ Mechanical Keyboard  │ Electronics     │  45.5 │       60 │ TechSource │
+│ 10 │ External Hard Drive  │ Electronics     │ 64.99 │       40 │ TechSource │
+│  4 │ Office Chair         │ Furniture       │ 89.99 │       35 │ ComfortCo  │
+│  5 │ Standing Desk        │ Furniture       │ 199.0 │       15 │ ComfortCo  │
+╰────┴──────────────────────┴─────────────────┴───────┴──────────┴────────────╯
+sqlite> SELECT SUM(quantity) AS "Total Items in Stock"
+   ...> FROM items2;
+╭──────────────────────╮
+│ Total Items in Stock │
+╞══════════════════════╡
+│                 1280 │
+╰──────────────────────╯
+sqlite> SELECT COUNT(*) AS "Office Supplies Count"
+   ...> FROM items2
+   ...> WHERE category = 'Office Supplies';
+╭──────────────────────╮
+│ Office Supplies C... │
+╞══════════════════════╡
+│                    3 │
+╰──────────────────────╯
+sqlite> .quit
